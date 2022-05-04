@@ -23,7 +23,9 @@
 <input type="button" id="three" value="3" onclick="concatNumber(this)">
 <input type="button" id="plus" value="+" onclick="storeOperation(this)"><br />
 
-<input type="button" id="zero" value="0" onclick="concatNumber(this)"> <br /><br />
+<input type="button" id="zero" value="0" onclick="concatNumber(this)">
+<input type="button" id="multiply" value="*" onclick="storeOperation(this)"><br /> <br /><br />
+
 <input type="button" value="=" onclick="calculate()">
 
 <p id="result"></p>
@@ -64,6 +66,14 @@ function storeOperation(element) {
             result = outputValue;
         } else {
             result = result / outputValue;
+        }
+    } else if (operation == '*') {
+    	console.log('multiply');
+
+        if (result == 0) {
+            result = outputValue;
+        } else {
+            result = result * outputValue;
         }
     }
 
@@ -115,6 +125,11 @@ function calculate() {
     } else if (lastOperation == '/') {
     	console.log('divide');
     	result = result / outputValue;
+
+    } else if (lastOperation == '*') {
+    	console.log('multiply');
+        result = result * outputValue;
+
     }
 
 	document.getElementById("output").value = result;
