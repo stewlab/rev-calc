@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Thom's Calculator</h2>
+
+<input type="text" id="output" name="output"><br><br>
+
+<input type="button" id="clear_output" value="C" onclick="clearOutput()"><br /><br />
+
+<input type="button" id="seven" value="7" onclick="concatNumber(this)">
+<input type="button" id="eight" value="8" onclick="concatNumber(this)">
+<input type="button" id="nine" value="9" onclick="concatNumber(this)">
+<input type="button" id="divide" value="/" onclick="storeOperation(this)"><br />
+
+<input type="button" id="four" value="4" onclick="concatNumber(this)">
+<input type="button" id="five" value="5" onclick="concatNumber(this)">
+<input type="button" id="six" value="6" onclick="concatNumber(this)">
+<input type="button" id="minus" value="-" onclick="storeOperation(this)"><br />
+
+<input type="button" id="one" value="1" onclick="concatNumber(this)">
+<input type="button" id="two" value="2" onclick="concatNumber(this)">
+<input type="button" id="three" value="3" onclick="concatNumber(this)">
+<input type="button" id="plus" value="+" onclick="storeOperation(this)"><br />
+
+<input type="button" id="zero" value="0" onclick="concatNumber(this)"> <br /><br />
+<input type="button" value="=" onclick="calculate()">
+
+<p id="result"></p>
+
+<p>History (latest to oldest):</p>
+<div id="operation_history"></div>
+
+<script>
+
+let result = 0;
+let lastOperation = '';
+let lastCalculationPrinted = false;
+
+function storeOperation(element) {
+
+    var operation = element.value;
+    lastOperation = operation;
+
+    let outputValue = parseInt(document.getElementById("output").value);
+
+    if (operation == '+') {
+    	console.log('add');
+        result = result + outputValue;
+
+    } else if (operation == '-') {
+    	console.log('subtract');
+
+        if (result == 0) {
+            result = outputValue;
+        } else {
+            result = result - outputValue;
+        }
+
+    } else if (operation == '/') {
+    	console.log('divide');
+
+        if (result == 0) {
+            result = outputValue;
+        } else {
+            result = result / outputValue;
+        }
+    }
+
+    document.getElementById("output").value = result;
+
+    let previousHistoryValue = document.getElementById("operation_history").innerHTML;
+    let currentHistory = outputValue + ' ' + operation+  '<br />';
+    currentHistory += previousHistoryValue;
+    document.getElementById("operation_history").innerHTML = currentHistory;
+
+
+    lastCalculationPrinted = true;
+
+}
+
+function clearOutput() {
+
+    result = 0;
+    lastCalculationPrinted = false;
+    document.getElementById("output").value = '';
+
+}
+
+function concatNumber(element) {
+
+    if (lastCalculationPrinted) {
+        lastCalculationPrinted = false;
+        document.getElementById("output").value = '';
+    }
+
+    let originalValue = document.getElementById("output").value;
+    document.getElementById("output").value = originalValue + element.value;
+
+    console.log(element.value)
+}
+
+function calculate() {
+
+    let outputValue = parseInt(document.getElementById("output").value);
+
+    if (lastOperation == '+') {
+    	console.log('add');
+        result = result + outputValue;
+
+    } else if (lastOperation == '-') {
+    	console.log('subtract');
+    	result = result - outputValue;
+
+    } else if (lastOperation == '/') {
+    	console.log('divide');
+    	result = result / outputValue;
+    }
+
+	document.getElementById("output").value = result;
+}
+
+</script>
+
+</body>
+</html>
